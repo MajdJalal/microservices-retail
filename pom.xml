@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--now all sub midules also have this parent too as a grand parent -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>org.programming.techie</groupId>
+    <artifactId>microservices-new-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging> <!--changed from pom to jar-->
+    <modules>
+        <module>product-service</module>
+        <module>order-service</module>
+        <module>inventory-service</module>
+        <module>discovery-server</module>
+        <module>api-gateway</module>
+        <module>notification-service</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-cloud.version>2023.0.0</spring-cloud.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>1.19.4</version><!--To avoid specifying the version of each dependency, you can use a BOM or Bill Of Materials -->
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
+                <version>3.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-tracing-bom</artifactId>
+                <version>${micrometer-tracing.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <!-- Spring Boot Maven Plugin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <!-- Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+<!--                <version>3.8.1</version>-->
+                <configuration>
+                    <source>16</source>
+                    <target>16</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+<!--
+Here's a breakdown of the plugins and their roles in Spring Boot, along with potential consequences of removing them:
+
+1. Spring Boot Maven Plugin:
+
+Purpose:
+Essential for building and packaging Spring Boot applications into executable JAR or WAR files.
+Provides features like:
+Dependency management
+Automatic configuration
+Embedded server support
+Application repackaging
+Consequences of Deletion:
+Project won't build correctly as a Spring Boot application.
+You'll need to manually configure build and packaging tasks.
+Embedded server won't be available.
+2. Compiler Plugin:
+
+Purpose:
+Configures the Java compiler used to compile your project's source code.
+Sets the Java version to use for compilation.
+Configuration:
+source: Specifies the Java version used to compile your code (16 in this case).
+target: Indicates the Java version the compiled bytecode is compatible with (also 16 here).
+Consequences of Deletion:
+Maven will use its default compiler settings, which might not match your project's requirements.
+Potential compilation errors or runtime issues if the default settings are incompatible.
+3. Lombok Exclusion:
+
+Purpose:
+Prevents Lombok-generated code (e.g., constructors, getters, setters) from being included in the final JAR file.
+Reduces file size and avoids potential conflicts.
+Consequences of Deletion:
+Lombok-generated code will be included in the JAR, increasing its size.
+Potential class loading or reflection issues if Lombok annotations are used extensively-->
