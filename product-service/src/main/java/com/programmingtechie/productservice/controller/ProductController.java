@@ -25,11 +25,11 @@ public class ProductController {
 
     private  final ProductService productService;
 
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)/*@ResponseStatus(HttpStatus.CREATED) is often used in Spring Boot REST controllers to indicate that the HTTP status code returned by a method should be 201 Created. This status code typically indicates that a new resource has been successfully created as a result of the operation. */
-//    public void createProduct(@RequestBody ProductRequest productRequest){
-//        productService.createProduct(productRequest);
-//    }
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)/*@ResponseStatus(HttpStatus.CREATED) is often used in Spring Boot REST controllers to indicate that the HTTP status code returned by a method should be 201 Created. This status code typically indicates that a new resource has been successfully created as a result of the operation. */
+    public void createProduct(@RequestBody ProductRequest productRequest){
+        productService.createProduct(productRequest);
+    }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)

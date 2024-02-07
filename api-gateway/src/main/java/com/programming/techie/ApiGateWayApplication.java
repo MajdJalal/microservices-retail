@@ -1,4 +1,4 @@
-package com.programming.techie.apigateway;
+package com.programming.techie;
 
 
 import org.springframework.boot.SpringApplication;

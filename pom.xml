@@ -15,7 +15,7 @@
     <groupId>org.programming.techie</groupId>
     <artifactId>microservices-new-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging> <!--changed from pom to jar-->
+    <packaging>pom</packaging> <!--changed from pom to jar-->
     <modules>
         <module>product-service</module>
         <module>order-service</module>
@@ -88,6 +88,19 @@
                 <configuration>
                     <source>16</source>
                     <target>16</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>2.8.0</version>
+                <configuration>
+                    <from>
+                        <image>eclipse-temurin:17.0.4.1_1-jre</image>
+                    </from>
+                    <to>
+                        <image>registry.hub.docker.com/majdjk/${project.artifactId}</image>><!--where to put img/username/name of image(this property used mean put the name to be same as artifcact id, provide username and password in settings.xml file-->
+                    </to>
                 </configuration>
             </plugin>
         </plugins>
